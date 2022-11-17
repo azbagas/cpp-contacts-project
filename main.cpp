@@ -1,7 +1,8 @@
 #include <iostream>
 #include <fstream>
 #include <conio.h>
-#define MAX 100 // Maksimum kontak
+#include <iomanip>
+#define MAX 100 // Maksimal kontak
 using namespace std;
 
 int banyak_kontak;
@@ -36,11 +37,22 @@ void tampilkanKontak(Data kontak[]) {
         cout << "Tidak ada kontak untuk ditampilkan!";
     }
     else {
-        for (int i = 0; i < banyak_kontak; i++) {
-            cout << kontak[i].nama << " " << kontak[i].domisili << " " << kontak[i].nomor << endl;
+        cout << "==========================" << endl; 
+        cout << "       Daftar Kontak      " << endl;
+        cout << "==========================" << endl;
+        cout<<"===========================================================================================================\n";
+        cout<<"|  No  |           Nama           |     No Telepon    |                       Alamat                      |\n";
+        cout<<"===========================================================================================================\n";
+        for (int i = 0; i < banyak_kontak; i++){
+            cout << "| " << setiosflags(ios::left) << setw(5) << i+1 << "|";
+            cout << " " << setiosflags(ios::left) << setw(25) << kontak[i].nama << "|";
+            cout << " " << setiosflags(ios::left) << setw(18) << kontak[i].nomor << "|";
+            cout << " " << setiosflags(ios::left) << setw(50) << kontak[i].domisili << "|";
+            cout <<"\n-----------------------------------------------------------------------------------------------------------\n";
         }
     }
-    
+
+    cout << "Press any key to continue...";
     getch();
 }
 
@@ -114,6 +126,7 @@ void tambahKontak(Data kontak[]) {
         cout << "Tidak bisa membuka file";
     }
 
+    // Update banyak kontaknya
     banyak_kontak++;
 
     cout << "Data telah berhasil diinput." << endl;
@@ -144,6 +157,8 @@ int main() {
         cout << "0. Keluar" << endl;
         cout << "Pilih: ";
         cin >> pil;
+        
+        system("cls");
 
         switch (pil) {
         case 1:
