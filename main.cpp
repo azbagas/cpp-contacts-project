@@ -2,6 +2,7 @@
 #include <fstream>
 #include <conio.h>
 #include <iomanip>
+#include <cstring>
 #define MAX 100 // Maksimal kontak
 using namespace std;
 
@@ -56,6 +57,40 @@ void tampilkanKontak(Data kontak[]) {
     getch();
 }
 
+void printDetail(Data kontak[], int i) {
+    cout << "Nama          : " << kontak[i].nama << endl;
+    cout << "Nomor Telepon : " << kontak[i].nomor << endl;
+    cout << "Domisili      : " << kontak[i].domisili << endl;
+}
+
+void search(Data kontak[]) {
+    bool flag = false;
+    int i;
+    string key;
+    cout << "==========================" << endl;
+    cout << "        Cari Kontak      " << endl;
+    cout << "==========================" << endl;
+    cout << "Nama: "; cin >> ws; getline(cin, key);
+
+    for (i = 0; i < banyak_kontak; i++) {
+        if (strcasecmp(kontak[i].nama.c_str(), key.c_str()) == 0) {
+            flag = true;
+            break;
+        }
+    }
+    cout << "--------------------------" << endl;
+    if (flag == true) {
+        printDetail(kontak, i);
+    }
+    else {
+        cout << "Kontak dengan nama "<< key << " tidak ditemukan" << endl;
+    }
+    
+    cout << endl;
+    cout << "Press any key to continue...";
+    getch();
+}
+
 void read(string str, char del, Data kontak[], int i){
     // banyak_var itu banyak member dari struct: nama, domisili, dll
     int banyak_var = 3;
@@ -104,12 +139,12 @@ void inisialisasiKontak(Data kontak[]) {
 
 void tambahKontak(Data kontak[]) {
     int i = banyak_kontak;
-    cout << "==========================" << endl; 
+    cout << "==========================" << endl;
     cout << "       Tambah Kontak      " << endl;
     cout << "==========================" << endl;
     cout << "Nama           : "; cin >> ws; getline(cin, kontak[i].nama);
-    cout << "Domisili       : "; getline(cin, kontak[i].domisili);
     cout << "Nomor Telepon  : "; getline(cin, kontak[i].nomor);
+    cout << "Domisili       : "; getline(cin, kontak[i].domisili);
 
     ofstream file("data.txt", ios::app);
 
@@ -154,6 +189,7 @@ int main() {
         cout << "==========================" << endl;
         cout << "1. Tampilkan data kontak" << endl;
         cout << "2. Tambahkan kontak" << endl;
+        cout << "3. Cari kontak" << endl;
         cout << "0. Keluar" << endl;
         cout << "Pilih: ";
         cin >> pil;
@@ -166,6 +202,9 @@ int main() {
             break;
         case 2:
             tambahKontak(kontak);
+            break;
+        case 3:
+            search(kontak);
             break;
         case 0:
             cout << "Thank you..." << endl;
