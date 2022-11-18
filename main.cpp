@@ -14,6 +14,12 @@ struct Data {
     string nomor;
 };
 
+void handlePil() {
+    cout << "Harap masukkan pilihan yang benar!" << endl;
+    cout << "Press any key to continue...";
+    getch();
+}
+
 int banyakLine() {
     string line;
     int count = 0;
@@ -33,12 +39,12 @@ int banyakLine() {
     return count;
 }
 
-void tampilkanKontak(Data kontak[]) {
+void tampilanTabel(Data kontak[]) {
     if (banyak_kontak == 0) {
         cout << "Tidak ada kontak untuk ditampilkan!";
     }
     else {
-        cout << "==========================" << endl; 
+        cout << "==========================" << endl;
         cout << "       Daftar Kontak      " << endl;
         cout << "==========================" << endl;
         cout<<"===========================================================================================================\n";
@@ -57,10 +63,106 @@ void tampilkanKontak(Data kontak[]) {
     getch();
 }
 
+void tampilanDetail(Data kontak[]) {
+    int i = 0;
+    int pil;
+    if (banyak_kontak == 0) {
+        cout << "Tidak ada kontak untuk ditampilkan!";
+    }
+    else {
+        do {
+            cout << "==========================" << endl; 
+            cout << "       Detail Kontak      " << endl;
+            cout << "==========================" << endl;
+            cout << "Nomor (" << i+1 << "/"<< banyak_kontak << ")" << endl;
+            cout << "Nama          : " << kontak[i].nama << endl;
+            cout << "Nomor Telepon : " << kontak[i].nomor << endl;
+            cout << "Domisili      : " << kontak[i].domisili << endl;
+            cout << endl;
+            cout << "Navigasi:" << endl;
+            cout << "1. Selanjutnya" << endl;
+            cout << "2. Sebelumnya" << endl;
+            cout << "0. Kembali ke menu utama" << endl;
+            cout << "Pilihan: ";
+            cin >> pil;
+
+            system("cls");
+
+            switch (pil) {
+            case 1:
+                if (i == banyak_kontak - 1) {
+                    i = 0;
+                }
+                else {
+                    i++;
+                }
+                break;
+            case 2:
+                if (i == 0) {
+                    i = banyak_kontak - 1;
+                }
+                else {
+                    i--;
+                }
+            case 0:
+                break;
+            default:
+                handlePil();
+                system("cls");
+                break;
+            }
+
+        } while (pil != 0);   
+    }
+}
+
+void menuTampilan(Data kontak[]) {
+    int pil;
+    cout << "==========================" << endl; 
+    cout << "        Data Kontak       " << endl;
+    cout << "==========================" << endl;
+    cout << "1. Tampilkan tabel" << endl;
+    cout << "2. Tampilkan detail" << endl;
+    cout << "0. Kembali" << endl;
+    cout << "Pilih: ";
+    cin >> pil;
+
+    system("cls");
+
+    switch (pil) {
+    case 1:
+        tampilanTabel(kontak);
+        break;
+    case 2:
+        tampilanDetail(kontak);
+        break;
+    case 0:
+        break;
+    default:
+        handlePil();
+        break;
+    }
+}
+
 void printDetail(Data kontak[], int i) {
     cout << "Nama          : " << kontak[i].nama << endl;
     cout << "Nomor Telepon : " << kontak[i].nomor << endl;
     cout << "Domisili      : " << kontak[i].domisili << endl;
+}
+
+void sorting(Data kontak[]) {
+    int i, j;
+    for (i = 0; i < banyak_kontak - 1; i++) {
+        for (j = 0; j < banyak_kontak - i - 1; j++) {
+            if (tolower(kontak[j].nama[0]))
+            {
+                /* code */
+            }
+            
+        }
+        
+    }
+    
 }
 
 void search(Data kontak[]) {
@@ -170,12 +272,6 @@ void tambahKontak(Data kontak[]) {
  
 }
 
-void handlePil() {
-    cout << "Harap masukkan pilihan yang benar!" << endl;
-    cout << "Press any key to continue...";
-    getch();
-}
-
 int main() {
     int pil;
     
@@ -198,7 +294,7 @@ int main() {
 
         switch (pil) {
         case 1:
-            tampilkanKontak(kontak);
+            menuTampilan(kontak);
             break;
         case 2:
             tambahKontak(kontak);
@@ -215,7 +311,6 @@ int main() {
         }
 
     } while (pil != 0);
-    
     
     return 0;
 }
