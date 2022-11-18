@@ -235,6 +235,17 @@ void inisialisasiKontak(Data kontak[]) {
     }
 }
 
+void titleCase(string &str) {
+    for(int i = 0; i < str.size(); i++){
+        if(i == 0 || (i != 0 && str[i - 1] == ' ')){
+            str[i] = toupper(str[i]);
+        }
+        else {
+            str[i] = tolower(str[i]);
+        }
+    }
+}
+
 void tambahKontak(Data kontak[]) {
     cout << "==========================" << endl;
     cout << "       Tambah Kontak      " << endl;
@@ -243,12 +254,17 @@ void tambahKontak(Data kontak[]) {
     cout << "Nomor Telepon  : "; getline(cin, kontak[banyak_kontak].nomor);
     cout << "Domisili       : "; getline(cin, kontak[banyak_kontak].domisili);
 
+    // Benerin kapitalisasi
+    titleCase(kontak[banyak_kontak].nama);
+    titleCase(kontak[banyak_kontak].domisili);
+
     // Update banyak kontaknya
     banyak_kontak++;
+    // Lalu sorting alfabetikal
     sorting(kontak);
 
+    // Masukkin datanya ke file
     ofstream file("data.txt", ios::out);
-
     if(file.is_open()) {
         for (int i = 0; i < banyak_kontak; i++) {
             if (i > 0) {
@@ -263,7 +279,7 @@ void tambahKontak(Data kontak[]) {
         cout << "Tidak bisa membuka file";
     }
 
-
+    cout << endl;
     cout << "Data telah berhasil diinput." << endl;
     cout << "Press any key to continue...";
     getch();
