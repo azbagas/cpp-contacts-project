@@ -90,20 +90,16 @@ void tampilanDetail(Data kontak[]) {
 
             switch (pil) {
             case 1:
-                if (i == banyak_kontak - 1) {
+                if (i == banyak_kontak - 1) 
                     i = 0;
-                }
-                else {
+                else
                     i++;
-                }
                 break;
             case 2:
-                if (i == 0) {
+                if (i == 0)
                     i = banyak_kontak - 1;
-                }
-                else {
+                else
                     i--;
-                }
             case 0:
                 break;
             default:
