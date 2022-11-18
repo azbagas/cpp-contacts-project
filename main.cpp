@@ -41,7 +41,7 @@ int banyakLine() {
 
 void tampilanTabel(Data kontak[]) {
     if (banyak_kontak == 0) {
-        cout << "Tidak ada kontak untuk ditampilkan!";
+        cout << "Tidak ada kontak untuk ditampilkan!" << endl;
     }
     else {
         cout << "==========================" << endl;
@@ -67,7 +67,9 @@ void tampilanDetail(Data kontak[]) {
     int i = 0;
     int pil;
     if (banyak_kontak == 0) {
-        cout << "Tidak ada kontak untuk ditampilkan!";
+        cout << "Tidak ada kontak untuk ditampilkan!" << endl;
+        cout << "Press any key to continue...";
+        getch();
     }
     else {
         do {
@@ -150,15 +152,13 @@ void sorting(Data kontak[]) {
     int i, j;
     for (i = 0; i < banyak_kontak - 1; i++) {
         for (j = 0; j < banyak_kontak - i - 1; j++) {
-            if (tolower(kontak[j].nama[0]))
-            {
-                /* code */
+            if (kontak[j].nama > kontak[j + 1].nama) {
+                Data temp = kontak[j];
+                kontak[j] = kontak[j + 1];
+                kontak[j + 1] = temp;
             }
-            
         }
-        
     }
-    
 }
 
 void search(Data kontak[]) {
@@ -236,31 +236,33 @@ void inisialisasiKontak(Data kontak[]) {
 }
 
 void tambahKontak(Data kontak[]) {
-    int i = banyak_kontak;
     cout << "==========================" << endl;
     cout << "       Tambah Kontak      " << endl;
     cout << "==========================" << endl;
-    cout << "Nama           : "; cin >> ws; getline(cin, kontak[i].nama);
-    cout << "Nomor Telepon  : "; getline(cin, kontak[i].nomor);
-    cout << "Domisili       : "; getline(cin, kontak[i].domisili);
+    cout << "Nama           : "; cin >> ws; getline(cin, kontak[banyak_kontak].nama);
+    cout << "Nomor Telepon  : "; getline(cin, kontak[banyak_kontak].nomor);
+    cout << "Domisili       : "; getline(cin, kontak[banyak_kontak].domisili);
 
-    ofstream file("data.txt", ios::app);
+    // Update banyak kontaknya
+    banyak_kontak++;
+    sorting(kontak);
+
+    ofstream file("data.txt", ios::out);
 
     if(file.is_open()) {
-        if (banyak_kontak == 0) {
+        for (int i = 0; i < banyak_kontak; i++) {
+            if (i > 0) {
+                file << endl;
+            }
             file << kontak[i].nama << "#" << kontak[i].domisili << "#" << kontak[i].nomor;
         }
-        else {
-            file << "\n" << kontak[i].nama << "#" << kontak[i].domisili << "#" << kontak[i].nomor;
-        }
+        
         file.close();
     }
     else {
         cout << "Tidak bisa membuka file";
     }
 
-    // Update banyak kontaknya
-    banyak_kontak++;
 
     cout << "Data telah berhasil diinput." << endl;
     cout << "Press any key to continue...";
