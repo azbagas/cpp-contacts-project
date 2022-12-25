@@ -1,5 +1,5 @@
 # cpp-contacts-project
-Tugas akhir mata kuliah Pemrograman
+Proyek akhir mata kuliah Pemrograman
 
 # Anggota:
 1. Azhar Bagaskara (22/502652/PA/21573)
